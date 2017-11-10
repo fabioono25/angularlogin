@@ -1,27 +1,65 @@
-# N5CompleteGuide
+# Example of Angular 4 Login Page, JWT Expiration Control and REST for list of Products
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.5.0.
+### Technologies:
 
-## Development server
+- Angular 4;
+- REST;
+- Toaster Notifications.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+### Running this solution:
 
-## Code scaffolding
+First download or clone the project in a local directory:
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Run the command to install node modules:
 
-## Build
+```javascript
+npm install
+```
+Then, run the command to start server:
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+```javascript
+ng serve
+```
+The application will start with page:
 
-## Running unit tests
+http://localhost:4200/
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+**Important**: the application is configured to work with REST API from the JWT WebAPI REST: https://github.com/fabioono25/webapicore2jwt
 
-## Running end-to-end tests
+It's important verify in the files **auth.service.ts** and **product.service.ts** if the URL is working correctly:
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+```javascript
+private url: string = "http://localhost:60757/api/Auth";
+```
 
-## Further help
+```javascript
+private url: string = "http://localhost:60757/api/Products";
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+When application starts, go to http://localhost:4200/signin
+
+Validation when trying login with invalid user/password:
+
+![Alt text](https://github.com/fabioono25/angularlogin/blob/master/images/1-loginFailed.PNG "Login Failed")
+
+When login is ok, it'll be generated an JWT authentication token. You can logout any time:
+
+![Alt text](https://github.com/fabioono25/angularlogin/blob/master/images/2-loginok.PNG "Login Ok with Token")
+
+Link for Products will be enabled:
+
+![Alt text](https://github.com/fabioono25/angularlogin/blob/master/images/3-productList.PNG "Product List")
+
+You can see de detail of each product:
+
+![Alt text](https://github.com/fabioono25/angularlogin/blob/master/images/4-productdetail.PNG "Product Detail")
+
+The token have an expiration time. If you prefer, force the invalidation setting the localStorage with an invalid value:
+
+```mongodb
+localStorage["token"]="invalid token value"
+```
+
+When you search again, this message appears, and you'll be redirected to login page again:
+
+![Alt text](https://github.com/fabioono25/angularlogin/blob/master/images/5-forcetokenexpiration.PNG "Token invalid or expired")
